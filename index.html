@@ -3,9 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Park the Bus!</title>
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
-    
+     <!-- PANTALLA DE INICIO -->
+    <div id="game-start" class="container">
+    <h1>Park the Bus!</h1>
+    <button id="start-game-btn"> Start Game!</button>
+    <h2>Instrucciones:</h2>
+    <ul>
+        <li>Presiona el botón de juego</li>
+        <li>Tu misión será la de aparcar en la zona señalada</li>
+        <li>Mueve el autobús con las flechas de tu teclado</li>
+        <li>Cada vez que aparques en el área señalada ganas puntos</li>
+        <li>Si chocas contra un obstáculo, pierdes!</li>
+    </ul>
+    </div>
+     <!-- PANTALLA DE JUEGO -->
+    <div id="game-screen" class="container">
+    <div id="Timer">Time: 60</div>
+    <div id="Score">Score: 0</div>
+    <!-- ElementoS: puntuación, vidas, etc deberia ir aqui (pero fuera del game-box) -->
+    <div id="game-box"></div>
+        <!-- Los elementos del juego serán añadidos desde JS con manipulación de DOM -->
+    </div>
+    </div>
+     <!-- PANTALLA FINAL -->
+     <div>
+        <div id="game-restart" class="container">
+            <h3>Game Over</h1>
+            <p id="final-score">Your Score: 0</p>
+            <div id="top-scores">
+                <h2>Top Scores</h2>
+                <ul id="scores-list"></ul>
+            </div>
+            <button id="restart-game-btn">Restart Game</button>
+     </div>
+        
+      <!-- SCRIPTS DE JAVASCRIPT -->
+    <script src="js/main.js"></script>
+    <script src="js/bus.js"></script>
+    <script src="js/parking.js"></script>
+    <script src="js/obstacles.js"></script>
 </body>
 </html>

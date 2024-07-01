@@ -1,0 +1,73 @@
+body {
+    margin: 0;
+    background-color: lightgray;
+  }
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 50px;
+  }
+
+.container h1 {
+    font-size: 48px;
+}
+
+.container p {
+    font-size: 20px;
+}
+
+.container button {
+width:200px;
+height:200px;
+margin: 25px;
+padding:20px;
+border-radius: 150px;
+font-size:30px;
+text-transform: uppercase;
+
+}
+#game-screen {
+    display: block;
+}
+#game-box {
+    background-color: darkgray;
+    width:1180px;
+    height:665px;
+  
+    position: relative; /* permite posicionar los elementos de forma absoluta dentro del game-box */
+    overflow: hidden; /* previene que los elementos salgan visualmente del game-box */
+    user-select: none; /* previene que los elementos del game-box sean resaltados al hacer click */
+  
+    background-image: url("/images/parking.png");
+    background-position: center;
+    background-size: 79%;
+}
+#game-box * {
+    pointer-events: none; /* previene que todos los elementos del game-box sean arrastrados al clickar sobre ellos */
+  }
+
+#timer, #score {
+    position: absolute;
+    top: 10px;
+    font-size: 24px;
+}
+
+#timer {
+    left: 10px;
+}
+
+#score {
+    right: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+/* PRIMEROS PASOS: -> para que aparezca únicamente la página inicial */
+#game-screen, #game-restart {
+
+    display: none;
+  }
