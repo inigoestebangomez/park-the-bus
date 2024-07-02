@@ -1,10 +1,10 @@
 class Parking {
-    constructor(positionX) {
+    constructor(positionX, positionY) {
         this.node = document.createElement("img")
         this.node.src = "./images/parking_signal.png"
         gameBoxNode.append(this.node)
         this.x = positionX;
-        this.y = 100;
+        this.y = positionY;
         this.w = 50;
         this.h = 50;
         //configuración inicial del elem.

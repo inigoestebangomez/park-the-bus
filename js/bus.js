@@ -32,22 +32,6 @@ movement (direction) {
         case "Down":
             this.y += move;
             break;
-        // case "RightUp":
-        //     this.y += move;
-        //     this.x += move;
-        //     break;
-        // case "RightDown":
-        //     this.y -= move;
-        //     this.x += move;
-        //     break;
-        // case "LeftUp":
-        //     this.y -= move;
-        //     this.x -= move;
-        //     break;
-        // case "LeftDown":
-        //     this.y -= move;
-        //     this.x -= move;
-        //     break;
     }
         // para delimitar el área de uso del bus en X e Y
         this.x = Math.max(0, Math.min(this.x, gameBoxNode.offsetWidth - this.w));
@@ -56,5 +40,6 @@ movement (direction) {
         // Actualiza la posición del nodo en el DOM
         this.node.style.left = `${this.x}px`
         this.node.style.top = `${this.y}px`
+        
 }
 }
