@@ -163,20 +163,67 @@ function busParkingCollision() {
     startBtnNode.addEventListener("click", () => {
       startGame();
 });
+//////////////////////////////////////////////////////
+// window.addEventListener("keydown", (event) => {
+//   if (event.key === "ArrowRight") {
+//     busObj.movement("Right");
+//   } else if (event.key === "ArrowLeft") {
+//     busObj.movement("Left");
+//   } else if (event.key === "ArrowUp") {
+//     busObj.movement("Up");
+//   } else if (event.key === "ArrowDown") {
+//     busObj.movement("Down");
+//   }
+// });
+//////////////////////////////////////////////////////
 
 window.addEventListener("keydown", (event) => {
-  // console.log(event.key);
-  if (event.key === "ArrowRight") {
-    busObj.movement("Right");
-  } else if (event.key === "ArrowLeft") {
-    busObj.movement("Left");
-  } else if (event.key === "ArrowUp") {
-    busObj.movement("Up");
-  } else if (event.key === "ArrowDown") {
-    busObj.movement("Down");
-  }
+  handleKey(event, true);
 });
 
+window.addEventListener("keyup", (event) => {
+  handleKey(event, false);
+})
+
+function handleKey(event, isKeyDown) {
+  if (event.key === "ArrowRight") {
+    Keys.right = isKeyDown;
+  } else if (event.key === "ArrowLeft") {
+    Keys.left = isKeyDown;
+  } else if (event.key === "ArrowUp") {
+    Keys.up = isKeyDown;
+  } else if (event.key === "ArrowDown") {
+    Keys.down = isKeyDown;
+  }
+}
+
+let Keys = {
+  up: false,
+  down: false,
+  left: false,
+  right: false
+};
+function update() {
+  if (Keys.right) {
+    busObj.movement("Right");
+  }
+  if (Keys.left) {
+    busObj.movement("Left");
+  }
+  if (Keys.up) {
+    busObj.movement("Up");
+  }
+  if (Keys.down) {
+    busObj.movement("Down");
+  }
+  requestAnimationFrame(update);
+}
+
+// Inicia el bucle de actualización
+update();
+
+
+/////////////////////////////////////////////////////
 restartBtnNode.addEventListener("click", function () {
   gameRestartNode.style.display = "none";
   startGame();
