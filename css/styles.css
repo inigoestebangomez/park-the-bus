@@ -48,14 +48,10 @@ text-transform: uppercase;
     pointer-events: none; /* previene que todos los elementos del game-box sean arrastrados al clickar sobre ellos */
   }
 
-#timer, #score {
+#score {
     position: absolute;
     top: 10px;
     font-size: 24px;
-}
-
-#timer {
-    left: 10px;
 }
 
 #score {

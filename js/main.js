@@ -15,6 +15,7 @@ const gameBoxNode = document.querySelector("#game-box");
 //ELEMENTOS DEL GAME-SCREEN
 //score
 const scoreNode = document.querySelector("#score");
+const scoreNodeFinal = document.querySelector("#final-score")
 
 //* VARIABLES GLOBALES DEL JUEGO
 // Bus
@@ -36,7 +37,7 @@ function startGame() {
   parkingArray = [];
   obstaclesArray = [];
 
-  console.log("iniciando juego");
+  // console.log("iniciando juego");
   // 1)ocultar la pantalla de inicio
   gameStartNode.style.display = "none";
   // 2)mostrar la pantalla de juego
@@ -47,19 +48,18 @@ function startGame() {
   parkingAppear();
   //console.log(busObj)
   // 4)iniciar intervalo inic. del juego (gameLoop)
-  setInterval(() => {
+  mainIntervalId =setInterval(() => {
     gameLoop();
-    
   }, Math.round(1000 / 60));
   // 5) intervalos que determinarían la frecuencia en la que aparecen los elementos del juego.
 }
 // función de movimiento loop que se ejecuta a 60 fps
 // movimientos automáticos, checkeos de colisiones, animaciones
 function gameLoop() {
-  console.log("juego andando a 60fps")
+  console.log("juego andando a 60fps");
   busParkingCollision();
   busObstaclesCollision();
-  updatePlayerMovement()
+  updatePlayerMovement();
 }
 
 // PARKING. aparecer, colisión y desaparecer
@@ -93,93 +93,93 @@ function busParkingCollision() {
       busObj.y < eachParking.y + eachParking.h &&
       busObj.y + busObj.h > eachParking.y
     ) {
-
       // Si Collision detectada
+      nextLevel();
+    }
+
+  });
+}
+
+//OBSTÁCULOS. aparecer, colisión, desaparecer
+
+function obstaclesAppear() {
+  let randomPositionXObj1 = Math.floor(Math.random() * (1180 - 500) + 300);
+  let randomPositionYObj1 = Math.floor(Math.random() * (400 - 200) + 200);
+  let randomPositionXObj2 = Math.floor(Math.random() * (1180 - 500) + 300);
+  let randomPositionYObj2 = Math.floor(Math.random() * (400 - 200) + 200);
+
+  let obstaclesObj1 = new Obstacles(randomPositionXObj1, randomPositionYObj1);
+  obstaclesArray.push(obstaclesObj1);
+
+  let obstaclesObj2 = new Obstacles(randomPositionXObj2, randomPositionYObj2);
+  obstaclesArray.push(obstaclesObj2);
+}
+
+function busObstaclesCollision() {
+  obstaclesArray.forEach((eachObstacle) => {
+    //eachObstacle sería uno
+    //obstaclesObj es el otro
+    //necesitamos verificar si están colisionando
+    if (
+      busObj.x < eachObstacle.x + eachObstacle.w &&
+      busObj.x + busObj.w > eachObstacle.x &&
+      busObj.y < eachObstacle.y + eachObstacle.h &&
+      busObj.y + busObj.h > eachObstacle.y
+    ) {
+      // Si Collision detectada
+      gameOver();
       //score que suma 1 uds cada vez que desaparece
-      scoreNode.innerHTML = Number(scoreNode.innerHTML) + 1;
-      nextLevel()
+      scoreNode.innerText++;
     }
   });
 }
-    
-    //OBSTÁCULOS. aparecer, colisión, desaparecer
-    
-    function obstaclesAppear() {
-      let randomPositionXObj1 = Math.floor(Math.random() * (1180 - 500) + 300);
-      let randomPositionYObj1 = Math.floor(Math.random() * (400 - 200) + 200);
-      let randomPositionXObj2 = Math.floor(Math.random() * (1180 - 500) + 300);
-      let randomPositionYObj2 = Math.floor(Math.random() * (400 - 200) + 200);
-      
-      let obstaclesObj1 = new Obstacles(randomPositionXObj1, randomPositionYObj1);
-      obstaclesArray.push(obstaclesObj1);
-      
-      let obstaclesObj2 = new Obstacles(randomPositionXObj2, randomPositionYObj2);
-      obstaclesArray.push(obstaclesObj2);
-      console.log(obstaclesArray.length);
-    }
-    
-    function busObstaclesCollision() {
-      
-      obstaclesArray.forEach((eachObstacle) => {
-        //eachObstacle sería uno
-        //obstaclesObj es el otro
-        //necesitamos verificar si están colisionando
-        if (
-          busObj.x < eachObstacle.x + eachObstacle.w &&
-          busObj.x + busObj.w > eachObstacle.x &&
-          busObj.y < eachObstacle.y + eachObstacle.h &&
-          busObj.y + busObj.h > eachObstacle.y
-        ) {
-          // Si Collision detectada
-          gameOver();
-        }
-      });
-    }
-    
-    function gameOver() {
-      parkingArray.forEach((eachParking) => {
-        eachParking.node.remove()
-      })
-      obstaclesArray.forEach((eachObstacle) => {
-        eachObstacle.node.remove()
-      })
-      busObj.node.remove();
-     
-      // 1 - limpiar todos los intervalos
-      clearInterval(mainIntervalId);
-      parkingArray = [];
-      obstaclesArray = [];
-      // 2 - ocultar pantalla de juego
-      gameScreenNode.style.display = "none";
-      // 3 - mostrar la pantalla final
-      gameRestartNode.style.display = "flex";
-    }
-    
-    function nextLevel() {
-    //aquí removemos todo lo que hay dentro del DOM
-      parkingArray.forEach((eachParking) => {
-        eachParking.node.remove()
-      })
-      obstaclesArray.forEach((eachObstacle) => {
-        eachObstacle.node.remove()
-      })
-      busObj.node.remove();
 
-      //aquí reiniciamos y creamos los nuevos elementos en JS
-      // el bus vuelve a la posición inicial
-      busObj = new Bus();
-      // limpiar los arrays de obstaculos y parking
-      parkingArray = [];
-      obstaclesArray = [];
-      // aparecen nuevos parking y nuevos obstaculos
-      obstaclesAppear();
-      parkingAppear();
-    }
+function gameOver() {
+  //aquí removemos todo lo que hay dentro del DOM
+  console.log("game over")
+  parkingArray.forEach((eachParking) => {
+    eachParking.node.remove();
+  });
+  obstaclesArray.forEach((eachObstacle) => {
+    eachObstacle.node.remove();
+  });
+  busObj.node.remove();
+  // 1 - limpiar todos los intervalos
+  clearInterval(mainIntervalId);
+  parkingArray = [];
+  obstaclesArray = [];
+  // 2 - ocultar pantalla de juego
+  gameScreenNode.style.display = "none";
+  // 3 - mostrar la pantalla final
+  gameRestartNode.style.display = "flex";
+}
 
-    //* EVENT LISTENERS
-    // addEventListener de botón de inicio de juego
-    startBtnNode.addEventListener("click", () => {
-      startGame();
+function nextLevel() {
+  //aquí removemos todo lo que hay dentro del DOM
+  console.log("next level")
+  parkingArray.forEach((eachParking) => {
+    eachParking.node.remove();
+  });
+  obstaclesArray.forEach((eachObstacle) => {
+    eachObstacle.node.remove();
+  });
+  busObj.node.remove();
+  //aquí reiniciamos y creamos los nuevos elementos en JS
+  // el bus vuelve a la posición inicial
+  busObj = new Bus();
+  // limpiar los arrays de obstaculos y parking
+  parkingArray = [];
+  obstaclesArray = [];
+
+  // aparecen nuevos parking y nuevos obstaculos
+  obstaclesAppear();
+  parkingAppear();
+}
+
+//* EVENT LISTENERS
+// addEventListener de botón de inicio de juego
+startBtnNode.addEventListener("click", () => {
+  startGame();
 });
 //////////////////////////////////////////////////////
 // window.addEventListener("keydown", (event) => {
@@ -201,7 +201,7 @@ window.addEventListener("keydown", (event) => {
 
 window.addEventListener("keyup", (event) => {
   handleKey(event, false);
-})
+});
 
 function handleKey(event, isKeyDown) {
   if (event.key === "ArrowRight") {
@@ -219,7 +219,7 @@ let Keys = {
   up: false,
   down: false,
   left: false,
-  right: false
+  right: false,
 };
 function updatePlayerMovement() {
   if (Keys.right) {
@@ -234,10 +234,7 @@ function updatePlayerMovement() {
   if (Keys.down) {
     busObj.movement("Down");
   }
-
 }
-
-
 
 /////////////////////////////////////////////////////
 restartBtnNode.addEventListener("click", function () {
