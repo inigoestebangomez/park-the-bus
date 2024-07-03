@@ -40,12 +40,16 @@ class Bus {
         this.node.src = "./images/autobus-up.png"
         this.node.style.width = `${this.h}px`;
         this.node.style.height = `${this.w}px`;
+        this.node.style.top = `${this.y}px`;
+        this.node.style.left = `${this.x}px`;
         break;
       case "Down":
         this.y += move;
         this.node.src = "./images/autobus-down.png"
         this.node.style.width = `${this.h}px`;
         this.node.style.height = `${this.w}px`;
+        this.node.style.top = `${this.y}px`;
+        this.node.style.left = `${this.x}px`;
         break;
     }
     // para delimitar el área de uso del bus en X e Y

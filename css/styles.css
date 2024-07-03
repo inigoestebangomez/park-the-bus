@@ -7,27 +7,44 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 50px;
+    margin: 20px;
+    background-image: url("../images/Designer.jpeg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 98%;
+    height: 800px
   }
 
 .container h1 {
     font-size: 48px;
 }
-
+.container h2 {
+    color: rgb(255, 255, 255)
+}
 .container p {
     font-size: 20px;
 }
 
 .container button {
-width:200px;
-height:200px;
-margin: 25px;
-padding:20px;
-border-radius: 150px;
-font-size:30px;
+width:400px;
+height:100px;
+margin: 10px;
+padding:2px;
+border-radius: 50px;
+font-size: 50px;
 text-transform: uppercase;
-
+background-color: transparent;
+transition: transform 0.3s ease-in-out;
 }
+.container button:hover {
+    background-color: #467f9e75; /* Cambia el color al pasar el cursor sobre el botón */
+}
+
+.container button:active {
+    transform: scale(0.90); /* Reduce ligeramente el tamaño del botón cuando se hace clic */
+}
+
 #game-screen {
     display: block;
 }
@@ -48,20 +65,14 @@ text-transform: uppercase;
     pointer-events: none; /* previene que todos los elementos del game-box sean arrastrados al clickar sobre ellos */
   }
 
-#score {
+#score h4{
     position: absolute;
     top: 10px;
     font-size: 24px;
 }
-
-#score {
-    right: 10px;
-}
-
 .hidden {
     display: none;
 }
-
 
 /* PRIMEROS PASOS: -> para que aparezca únicamente la página inicial */
 #game-screen, #game-restart {

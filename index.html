@@ -9,7 +9,6 @@
 <body>
      <!-- PANTALLA DE INICIO -->
     <div id="game-start" class="container">
-    <h1>Park the Bus!</h1>
     <button id="start-game-btn"> Start Game!</button>
     <h2>Instrucciones:</h2>
     <ul>
@@ -21,8 +20,9 @@
     </ul>
     </div>
      <!-- PANTALLA DE JUEGO -->
-    <div id="game-screen" class="container">
-    <h4>Score: <span id="core">0</span></h4>
+    <div id="game-screen" class="container-game">
+    <h4>Score: <span id="score">0</span></h4>
+    <div id="timer">30</div>
     <!-- Elementos: puntuación, vidas, etc deberia ir aqui (pero fuera del game-box) -->
     <div id="game-box"></div>
         <!-- Los elementos del juego serán añadidos desde JS con manipulación de DOM -->
@@ -31,15 +31,18 @@
      <!-- PANTALLA FINAL -->
      <div>
         <div id="game-restart" class="container">
-            <h3>Game Over</h1>
-            <p id="final-score">Your Score: 0</p>
+            <h2>Game Over</h2>
+            <p>Score: <span id="final-score">0</span></p>
             <div id="top-scores">
-                <!-- <h2>Top Scores</h2>
-                <ul id="scores-list"></ul>
-            </div> -->
+                <h2>Top Scores</h2>
+                <div id="best-scores"></h2>
+            </div>
             <button id="restart-game-btn">Restart Game</button>
      </div>
-        
+
+     <!-- MUSIC -->
+     <audio id="background-music" src="./music/A Flock Of Seagulls - I Ran (So Far Away) (Video).mp3" loop></audio>
+     <audio id="gameover-music" src="./music/mixkit-clown-horn-at-circus-715.mp3" loop></audio>
       <!-- SCRIPTS DE JAVASCRIPT -->
     <script src="./js/main.js"></script>
     <script src="./js/bus.js"></script>
