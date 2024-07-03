@@ -49,15 +49,17 @@ function startGame() {
   // 4)iniciar intervalo inic. del juego (gameLoop)
   setInterval(() => {
     gameLoop();
+    
   }, Math.round(1000 / 60));
   // 5) intervalos que determinarían la frecuencia en la que aparecen los elementos del juego.
 }
 // función de movimiento loop que se ejecuta a 60 fps
 // movimientos automáticos, checkeos de colisiones, animaciones
 function gameLoop() {
-  //console.log("juego andando a 60fps")
+  console.log("juego andando a 60fps")
   busParkingCollision();
   busObstaclesCollision();
+  updatePlayerMovement()
 }
 
 // PARKING. aparecer, colisión y desaparecer
@@ -129,25 +131,41 @@ function busParkingCollision() {
           busObj.y + busObj.h > eachObstacle.y
         ) {
           // Si Collision detectada
-          restartGame();
+          gameOver();
         }
       });
     }
     
-    function restartGame() {
+    function gameOver() {
+      parkingArray.forEach((eachParking) => {
+        eachParking.node.remove()
+      })
+      obstaclesArray.forEach((eachObstacle) => {
+        eachObstacle.node.remove()
+      })
+      busObj.node.remove();
+     
       // 1 - limpiar todos los intervalos
       clearInterval(mainIntervalId);
+      parkingArray = [];
+      obstaclesArray = [];
       // 2 - ocultar pantalla de juego
       gameScreenNode.style.display = "none";
       // 3 - mostrar la pantalla final
       gameRestartNode.style.display = "flex";
-      //
-      busObj.node.remove();
-      // gameScreenNode.innerHTML = null;
     }
     
     function nextLevel() {
-    
+    //aquí removemos todo lo que hay dentro del DOM
+      parkingArray.forEach((eachParking) => {
+        eachParking.node.remove()
+      })
+      obstaclesArray.forEach((eachObstacle) => {
+        eachObstacle.node.remove()
+      })
+      busObj.node.remove();
+
+      //aquí reiniciamos y creamos los nuevos elementos en JS
       // el bus vuelve a la posición inicial
       busObj = new Bus();
       // limpiar los arrays de obstaculos y parking
@@ -203,7 +221,7 @@ let Keys = {
   left: false,
   right: false
 };
-function update() {
+function updatePlayerMovement() {
   if (Keys.right) {
     busObj.movement("Right");
   }
@@ -216,11 +234,9 @@ function update() {
   if (Keys.down) {
     busObj.movement("Down");
   }
-  requestAnimationFrame(update);
+
 }
 
-// Inicia el bucle de actualización
-update();
 
 
 /////////////////////////////////////////////////////

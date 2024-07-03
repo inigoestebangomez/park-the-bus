@@ -40,7 +40,7 @@ text-transform: uppercase;
     overflow: hidden; /* previene que los elementos salgan visualmente del game-box */
     user-select: none; /* previene que los elementos del game-box sean resaltados al hacer click */
   
-    background-image: url("/images/parking.png");
+    background-image: url("../images/parking.png");
     background-position: center;
     background-size: 79%;
 }
