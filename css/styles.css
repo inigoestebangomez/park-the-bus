@@ -1,81 +1,108 @@
-body {
-    margin: 0;
-    background-color: lightgray;
-  }
-.container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 20px;
-    background-image: url("../images/Designer.jpeg");
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    width: 98%;
-    height: 800px
-  }
-
-.container h1 {
-    font-size: 48px;
+@font-face {
+  font-family: "KGHappy";
+  src: url("../fonts/KGHAPPY.ttf") format("truetype");
 }
-.container h2 {
-    color: rgb(255, 255, 255)
+@font-face {
+  font-family: "KGHappySolid";
+  src: url("../fonts/KGHAPPYSolid.ttf") format("truetype");
+}
+
+body {
+  margin: 0;
+  background-color: lightgray;
+}
+
+/* PANTALLA DE INICIO */
+
+.container {
+  position: relative;
+  margin: 20px;
+  background-image: url("../images/Designer (1).jpeg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 98%;
+  height: 800px;
+}
+#start-game-btn {
+  position: absolute;
+  display: flex;
+  align-items: flex-end;
+  width: 300px;
+  height: 100px;
+  margin: 10px;
+  padding: 2px;
+  border-radius: 50px;
+  color: rgb(226, 58, 58);
+  background-color: transparent;
+  transition: transform 0.3s ease-in-out;
+}
+
+ul {
+position: absolute;
+color: rgb(218, 167, 37);
+font-family: "KGHappySolid", sans-serif;
+font-size: medium;
+background-color: rgb(226, 58, 58);
+padding: 10px;
+list-style: none;
 }
 .container p {
-    font-size: 20px;
-}
-
-.container button {
-width:400px;
-height:100px;
-margin: 10px;
-padding:2px;
-border-radius: 50px;
-font-size: 50px;
-text-transform: uppercase;
-background-color: transparent;
-transition: transform 0.3s ease-in-out;
+  font-size: 20px;
 }
 .container button:hover {
-    background-color: #467f9e75; /* Cambia el color al pasar el cursor sobre el botón */
+  background-color: #d43838e2; /* Cambia el color al pasar el cursor sobre el botón */
+  color: rgba(218, 167, 37, 0.893);
 }
-
 .container button:active {
-    transform: scale(0.90); /* Reduce ligeramente el tamaño del botón cuando se hace clic */
+  transform: scale(
+    0.9
+  ); /* Reduce ligeramente el tamaño del botón cuando se hace clic */
 }
 
 #game-screen {
-    display: block;
+  display: block;
 }
 #game-box {
-    background-color: darkgray;
-    width:1180px;
-    height:665px;
-  
-    position: relative; /* permite posicionar los elementos de forma absoluta dentro del game-box */
-    overflow: hidden; /* previene que los elementos salgan visualmente del game-box */
-    user-select: none; /* previene que los elementos del game-box sean resaltados al hacer click */
-  
-    background-image: url("../images/parking.png");
-    background-position: center;
-    background-size: 79%;
+  background-color: darkgray;
+  width: 1180px;
+  height: 665px;
+
+  position: relative; /* permite posicionar los elementos de forma absoluta dentro del game-box */
+  overflow: hidden; /* previene que los elementos salgan visualmente del game-box */
+  user-select: none; /* previene que los elementos del game-box sean resaltados al hacer click */
+
+  background-image: url("../images/parking.png");
+  background-position: center;
+  background-size: 79%;
 }
 #game-box * {
-    pointer-events: none; /* previene que todos los elementos del game-box sean arrastrados al clickar sobre ellos */
-  }
-
-#score h4{
-    position: absolute;
-    top: 10px;
-    font-size: 24px;
+  pointer-events: none; /* previene que todos los elementos del game-box sean arrastrados al clickar sobre ellos */
+}
+.container-over {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  background-image: url("../images/Designer (2).jpeg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 98%;
+  height: 800px;
+}
+#score h4 {
+  position: absolute;
+  top: 10px;
+  font-size: 24px;
 }
 .hidden {
-    display: none;
+  display: none;
 }
 
 /* PRIMEROS PASOS: -> para que aparezca únicamente la página inicial */
-#game-screen, #game-restart {
-
-    display: none;
-  }
+#game-screen,
+#game-restart {
+  display: none;
+}
