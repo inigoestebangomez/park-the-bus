@@ -217,7 +217,7 @@ function displayBestScores() {
   bestScores.forEach((score, index) => {
     let scoreItem = document.createElement("div");
     scoreItem.innerText = `${index + 1}. ${score}`;
-    bestScoresNode.appendChild(scoreItem);
+    bestScoresNode.append(scoreItem);
   });
 }
 

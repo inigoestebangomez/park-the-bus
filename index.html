@@ -11,16 +11,17 @@
     <div id="game-start" class="container">
     <button id="start-game-btn"></button>
     <ul>
-        <li>1. Presiona el botón de juego</li>
-        <li>2. Aparca en la zona señalada</li>
-        <li>3. Muévete con las flechas de tu teclado</li>
-        <li>4. Cada vez que aparques en el área señalada ganas puntos</li>
+        <li>1. Presiona el botón de juego.</li>
+        <li>2. Aparca en la zona señalada.</li>
+        <li>3. Muévete con las flechas.</li>
+        <li>4. Aparca en el área señalada y gana puntos</li>
         <li>5. Si chocas contra un obstáculo... pierdes!</li>
     </ul>
     <div id="keyboard"></div>
     </div>
      <!-- PANTALLA DE JUEGO -->
     <div id="game-screen" class="container-game">
+    <div id="sidegame">
     <h4>Score: <span id="score">0</span></h4>
     <div id="timer">30</div>
     <!-- Elementos: puntuación, vidas, etc deberia ir aqui (pero fuera del game-box) -->
@@ -28,16 +29,16 @@
         <!-- Los elementos del juego serán añadidos desde JS con manipulación de DOM -->
     <div id="keyboard"></div>
     </div>
+    </div>
      <!-- PANTALLA FINAL -->
      <div>
         <div id="game-restart" class="container-over">
-            <h2>Game Over</h2>
-            <p>Score: <span id="final-score">0</span></p>
+            <h1>Game Over!</h1>
+            <p>Your Score: <span id="final-score">0</span></p>
             <div id="top-scores">
-                <h2>Top Scores</h2>
                 <div id="best-scores"></div>
             </div>
-            <button id="restart-game-btn">Restart Game</button>
+            <button id="restart-game-btn"></button>
      </div>
 
      <!-- MUSIC -->
