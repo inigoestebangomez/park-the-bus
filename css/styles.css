@@ -51,9 +51,9 @@ body {
 #start-game-btn:hover {
   background-color: rgba(255, 204, 74, 0.321);
 }
-#start-game-btn:active {
+/* #start-game-btn:active {
   transform: scale(0.9);
-}
+} */
 ul {
   position: absolute;
   top: 300px;
@@ -155,9 +155,9 @@ ul {
     background-color: rgba(172, 125, 6, 0.5);
 }
 
-#restart-game-btn:active {
+/* #restart-game-btn:active {
     transform: scale(0.9);
-}
+} */
 h1 {
     position: absolute;
     color: white;
