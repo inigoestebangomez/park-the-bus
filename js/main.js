@@ -14,12 +14,17 @@ const gameBoxNode = document.querySelector("#game-box");
 
 // MÚSICA
 const backgroundMusicNode = document.querySelector("#background-music");
-const gameOverMusicNode = document.querySelector("gameover-music")
+const gameOverMusicNode = document.querySelector("#gameover-music")
+const achieveMusicNode = document.querySelector("#achieve-music")
+const tictacMusicNode = document.querySelector("#tictac-music")
+const endMusicNode = document.querySelector("#end-music")
 
 //ELEMENTOS DEL GAME-SCREEN
 //score
 const scoreNode = document.querySelector("#score");
 const finalScoreNode = document.querySelector("#final-score");
+// best scores
+const bestScoresNode = document.querySelector("#best-scores");
 //timer
 const timerNode = document.querySelector("#timer")
 
@@ -39,7 +44,10 @@ let timerIntervalId = null;
 function startGame() {
    // Inicia la música
    backgroundMusicNode.play();
-   backgroundMusicNode.volume = 0.4;
+   backgroundMusicNode.volume = 0.1;
+   // Detiene la música de gameover si se estaba reproduciendo
+  gameOverMusicNode.pause();
+  gameOverMusicNode.currentTime = 0;
   // reiniciar los valores del juego
   parkingArray = [];
   obstaclesArray = [];
@@ -79,8 +87,15 @@ function startTimer() {
   timerIntervalId = setInterval(() => {
     seconds--;
     timerNode.innerText = seconds; //condicionar el nodo a los segundos hasta 0.
-    if (seconds <= 0) {
+    if(seconds === 3) {
+      tictacMusicNode.play()
+      tictacMusicNode.volume = 0.15
+    } else if (seconds <= 0) {
       clearInterval(timerIntervalId);
+      backgroundMusicNode.pause();
+      backgroundMusicNode.currentTime = 0;
+      endMusicNode.play()
+      endMusicNode.volume = 0.15
       gameOver();
     }
   }, 1000);
@@ -118,6 +133,8 @@ function busParkingCollision() {
     ) {
       // Si Collision detectada
       nextLevel();
+      achieveMusicNode.play()
+      achieveMusicNode.volume = 0.15;
     }
   });
 }
@@ -150,13 +167,17 @@ function busObstaclesCollision() {
     ) {
       // Si Collision detectada
       gameOver();
+      // música
+    backgroundMusicNode.pause();
+    backgroundMusicNode.currentTime = 0;
+    gameOverMusicNode.play();
+    gameOverMusicNode.volume = 0.1;
     }
   });
 }
 
 function gameOver() {
   //aquí removemos todo lo que hay dentro del DOM
-  console.log("game over");
   parkingArray.forEach((eachParking) => {
     eachParking.node.remove();
   });
@@ -175,12 +196,33 @@ function gameOver() {
   gameRestartNode.style.display = "flex";
   // igualar finalScoreNode del restart al score del juego
   finalScoreNode.innerText = scoreNode.innerText;
-  // música
-  backgroundMusicNode.pause();
-  backgroundMusicNode.currentTime = 0;
-  gameOverMusicNode.play();
-  gameOverMusicNode.volume = 0.4;
+  // guardar y mostrar los mejores puntajes
+  saveBestScore(parseInt(scoreNode.innerText));
+  displayBestScores();
 }
+
+function saveBestScore(score) {
+  let bestScores = JSON.parse(localStorage.getItem("bestScores")) || [];
+  bestScores.push(score);
+  bestScores.sort((a, b) => b - a); // Ordenar de mayor a menor
+  if (bestScores.length > 3) {
+    bestScores = bestScores.slice(0, 3); // Mantener solo los 3 mejores
+  }
+  localStorage.setItem("bestScores", JSON.stringify(bestScores));
+}
+
+function displayBestScores() {
+  let bestScores = JSON.parse(localStorage.getItem("bestScores")) || [];
+  bestScoresNode.innerHTML = "<h3>Best Scores</h3>";
+  bestScores.forEach((score, index) => {
+    let scoreItem = document.createElement("div");
+    scoreItem.innerText = `${index + 1}. ${score}`;
+    bestScoresNode.appendChild(scoreItem);
+  });
+}
+
+// Llamar a displayBestScores al cargar la página para mostrar los mejores puntajes actuales
+displayBestScores();
 
 function nextLevel() {
   //aquí removemos todo lo que hay dentro del DOM
