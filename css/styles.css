@@ -8,58 +8,76 @@
 }
 
 body {
-  margin: 0;
-  background-color: lightgray;
+    margin: 0;
+    background-color: lightgray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 /* PANTALLA DE INICIO */
 
 .container {
-  position: relative;
-  margin: 20px;
-  background-image: url("../images/Designer (1).jpeg");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  width: 98%;
-  height: 800px;
+    position: relative;
+    background-image: url("../images/Designer (1).jpeg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 98%;
+    height: 800px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 #start-game-btn {
-  position: absolute;
-  display: flex;
-  align-items: flex-end;
-  width: 300px;
-  height: 100px;
-  margin: 10px;
-  padding: 2px;
-  border-radius: 50px;
-  color: rgb(226, 58, 58);
-  background-color: transparent;
-  transition: transform 0.3s ease-in-out;
+    position: absolute;
+    left: 49.3%;
+    bottom: 62px;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    width: 310px;
+    height: 90px;
+    margin: 20px;
+    border-radius: 40px;
+    border: 2px solid rgb(0, 0, 0);
+    color: rgb(231, 36, 36);
+    background-color: transparent;
+    transition: transform 0.3s ease-in-out;
 }
-
+#start-game-btn:hover {
+  background-color: rgba(255, 204, 74, 0.321);
+}
+#start-game-btn:active {
+  transform: scale(0.9);
+}
 ul {
-position: absolute;
-color: rgb(218, 167, 37);
-font-family: "KGHappySolid", sans-serif;
-font-size: medium;
-background-color: rgb(226, 58, 58);
-padding: 10px;
-list-style: none;
+  position: absolute;
+  top: 300px;
+  left: 1px;
+  padding: 5px;
+  color: rgb(7, 6, 2);
+  font-family: "KGHappySolid", sans-serif;
+  font-size: small;
+  text-align: justify;
+  list-style: none;
+  max-width: 250px;
 }
-.container p {
-  font-size: 20px;
-}
-.container button:hover {
-  background-color: #d43838e2; /* Cambia el color al pasar el cursor sobre el botón */
-  color: rgba(218, 167, 37, 0.893);
-}
-.container button:active {
-  transform: scale(
-    0.9
-  ); /* Reduce ligeramente el tamaño del botón cuando se hace clic */
-}
+#keyboard {
+    position: absolute;
+    bottom: 170px;
+    left: 30px;
+    width: 300px;
+    height: 150px;
+    background-image: url('../images/pngwing.com.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
 
+/* PANTALLA DE JUEGO */
 #game-screen {
   display: block;
 }
@@ -68,7 +86,7 @@ list-style: none;
   width: 1180px;
   height: 665px;
 
-  position: relative; /* permite posicionar los elementos de forma absoluta dentro del game-box */
+  position: relative;
   overflow: hidden; /* previene que los elementos salgan visualmente del game-box */
   user-select: none; /* previene que los elementos del game-box sean resaltados al hacer click */
 
@@ -79,24 +97,23 @@ list-style: none;
 #game-box * {
   pointer-events: none; /* previene que todos los elementos del game-box sean arrastrados al clickar sobre ellos */
 }
+
+/* PANTALLA FINAL */
 .container-over {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 20px;
-  background-image: url("../images/Designer (2).jpeg");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  width: 98%;
-  height: 800px;
+    position: relative;
+    margin: 20px;
+    background-image: url("../images/Designer (2).jpeg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 98%;
+    height: 800px;
 }
-#score h4 {
+/* #score h4 {
   position: absolute;
   top: 10px;
   font-size: 24px;
-}
+} */
 .hidden {
   display: none;
 }
