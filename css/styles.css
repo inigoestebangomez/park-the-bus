@@ -51,9 +51,6 @@ body {
 #start-game-btn:hover {
   background-color: rgba(255, 204, 74, 0.321);
 }
-/* #start-game-btn:active {
-  transform: scale(0.9);
-} */
 ul {
   position: absolute;
   top: 300px;
@@ -62,7 +59,6 @@ ul {
   color: rgb(7, 6, 2);
   font-family: "KGHappySolid", sans-serif;
   font-size: small;
-  text-align: justify;
   list-style: none;
   max-width: 250px;
 }
@@ -154,10 +150,6 @@ ul {
 #restart-game-btn:hover {
     background-color: rgba(172, 125, 6, 0.5);
 }
-
-/* #restart-game-btn:active {
-    transform: scale(0.9);
-} */
 h1 {
     position: absolute;
     color: white;
@@ -185,12 +177,11 @@ p {
     color: white;
     font-family: "KGHappySolid", sans-serif;
     font-size: 25px;
-    text-transform: uppercase ;
+    text-transform: uppercase;
     top: 255px;
     left: 630px;
 }
-
-/* PRIMEROS PASOS: -> para que aparezca únicamente la página inicial */
+/* Para que aparezca únicamente la página inicial */
 #game-screen,
 #game-restart {
   display: none;

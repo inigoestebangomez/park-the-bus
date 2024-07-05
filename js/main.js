@@ -14,10 +14,10 @@ const gameBoxNode = document.querySelector("#game-box");
 
 // MÚSICA
 const backgroundMusicNode = document.querySelector("#background-music");
-const gameOverMusicNode = document.querySelector("#gameover-music")
-const achieveMusicNode = document.querySelector("#achieve-music")
-const tictacMusicNode = document.querySelector("#tictac-music")
-const endMusicNode = document.querySelector("#end-music")
+const gameOverMusicNode = document.querySelector("#gameover-music");
+const achieveMusicNode = document.querySelector("#achieve-music");
+const tictacMusicNode = document.querySelector("#tictac-music");
+const endMusicNode = document.querySelector("#end-music");
 
 //ELEMENTOS DEL GAME-SCREEN
 //score
@@ -26,26 +26,23 @@ const finalScoreNode = document.querySelector("#final-score");
 // best scores
 const bestScoresNode = document.querySelector("#best-scores");
 //timer
-const timerNode = document.querySelector("#timer")
+const timerNode = document.querySelector("#timer");
 
 //* VARIABLES GLOBALES DEL JUEGO
-// Bus
-// Obstáculos+parkings
-// variables de intervalos
+// Bus, obstáculos y parkings, variables de intervalos, timers
 let busObj = null;
 let parkingArray = [];
 let obstaclesArray = [];
 let mainIntervalId = null;
 let timerIntervalId = null;
 
-
 //* FUNCIONES GLOBALES DEL JUEGO
 // Inicio de juego sobre botón de inicio de juego
 function startGame() {
-   // Inicia la música
-   backgroundMusicNode.play();
-   backgroundMusicNode.volume = 0.1;
-   // Detiene la música de gameover si se estaba reproduciendo
+  // Inicia la música
+  backgroundMusicNode.play();
+  backgroundMusicNode.volume = 0.1;
+  // Detiene la música de gameover si se estaba reproduciendo
   gameOverMusicNode.pause();
   gameOverMusicNode.currentTime = 0;
   // reiniciar los valores del juego
@@ -55,7 +52,6 @@ function startGame() {
   scoreNode.innerText = 0;
   // Iniciar el temporizador
   startTimer();
-  // console.log("iniciando juego");
   // 1)ocultar la pantalla de inicio
   gameStartNode.style.display = "none";
   // 2)mostrar la pantalla de juego
@@ -64,47 +60,42 @@ function startGame() {
   busObj = new Bus();
   obstaclesAppear();
   parkingAppear();
-  //console.log(busObj)
   // 4)iniciar intervalo inic. del juego (gameLoop)
   mainIntervalId = setInterval(() => {
     gameLoop();
   }, Math.round(1000 / 60));
-  // 5) intervalos que determinarían la frecuencia en la que aparecen los elementos del juego.
 }
-// función de movimiento loop que se ejecuta a 60 fps
-// movimientos automáticos, checkeos de colisiones, animaciones
+// Función de movimiento loop que se ejecuta a 60 fps
 function gameLoop() {
-  // console.log("juego andando a 60fps");
-  busParkingCollision();
-  busObstaclesCollision();
-  updatePlayerMovement();
+  busParkingCollision(); //colisión del bus con el parking
+  busObstaclesCollision(); //colisión de bus con obstáculos
+  updatePlayerMovement(); //el loop del movimiento del jugador
 }
+// Función de timer, para invocarla cada vez que inicia el juego
 function startTimer() {
-  let seconds = 30; // añado el tiempo
-  timerNode.innerText = seconds; //igualo a seconds el nodo
-  
+  let seconds = 30; // variable que fija el tiempo
+  timerNode.innerText = seconds;
+
   clearInterval(timerIntervalId);
   timerIntervalId = setInterval(() => {
     seconds--;
-    timerNode.innerText = seconds; //condicionar el nodo a los segundos hasta 0.
-    if(seconds === 3) {
-      tictacMusicNode.play()
-      tictacMusicNode.volume = 0.15
+    timerNode.innerText = seconds; //condicionar el nodo a los segundos
+    if (seconds === 3) {
+      tictacMusicNode.play();
+      tictacMusicNode.volume = 0.15;
     } else if (seconds <= 0) {
       clearInterval(timerIntervalId);
       backgroundMusicNode.pause();
       backgroundMusicNode.currentTime = 0;
-      endMusicNode.play()
-      endMusicNode.volume = 0.15
+      endMusicNode.play();
+      endMusicNode.volume = 0.15;
       gameOver();
     }
   }, 1000);
 }
-// PARKING. aparecer, colisión y desaparecer
+// PARKING: aparecer y colisión
 function parkingAppear() {
-  //variable de arrays posiciones deseadas en X
-  //randomización de cualquiera de las 5
-  //aplicación a su ubicación
+  //variables de arrays posiciones deseadas en X, randomización de cualquiera de las 4, aplicación a su ubicación
   let posiblesXPark1 = [450, 580, 710, 840];
   let randomXPark1 = Math.floor(Math.random() * posiblesXPark1.length);
   let positionXPark1 = posiblesXPark1[randomXPark1];
@@ -122,25 +113,21 @@ function parkingAppear() {
 
 function busParkingCollision() {
   parkingArray.forEach((eachParking) => {
-    //eachParking sería uno
-    //busObj es el otro
-    //necesitamos verificar si están colisionando
+    //eachParking sería uno, busObj es el otro, verificar si están colisionando
     if (
       busObj.x < eachParking.x + eachParking.w &&
       busObj.x + busObj.w > eachParking.x &&
       busObj.y < eachParking.y + eachParking.h &&
       busObj.y + busObj.h > eachParking.y
     ) {
-      // Si Collision detectada
+      // si Collision detectada
       nextLevel();
-      achieveMusicNode.play()
+      achieveMusicNode.play();
       achieveMusicNode.volume = 0.15;
     }
   });
 }
-
-//OBSTÁCULOS. aparecer, colisión, desaparecer
-
+//OBSTÁCULOS: aparecer y colisión
 function obstaclesAppear() {
   let randomPositionXObj1 = Math.floor(Math.random() * (1180 - 500) + 300);
   let randomPositionYObj1 = Math.floor(Math.random() * (400 - 200) + 200);
@@ -156,9 +143,7 @@ function obstaclesAppear() {
 
 function busObstaclesCollision() {
   obstaclesArray.forEach((eachObstacle) => {
-    //eachObstacle sería uno
-    //obstaclesObj es el otro
-    //necesitamos verificar si están colisionando
+    //eachObstacle sería uno, obstaclesObj es el otro, verificar si están colisionando
     if (
       busObj.x < eachObstacle.x + eachObstacle.w &&
       busObj.x + busObj.w > eachObstacle.x &&
@@ -168,14 +153,14 @@ function busObstaclesCollision() {
       // Si Collision detectada
       gameOver();
       // música
-    backgroundMusicNode.pause();
-    backgroundMusicNode.currentTime = 0;
-    gameOverMusicNode.play();
-    gameOverMusicNode.volume = 0.1;
+      backgroundMusicNode.pause();
+      backgroundMusicNode.currentTime = 0;
+      gameOverMusicNode.play();
+      gameOverMusicNode.volume = 0.1;
     }
   });
 }
-
+// GAMEOVER 
 function gameOver() {
   //aquí removemos todo lo que hay dentro del DOM
   parkingArray.forEach((eachParking) => {
@@ -200,32 +185,30 @@ function gameOver() {
   saveBestScore(parseInt(scoreNode.innerText));
   displayBestScores();
 }
-
+//BEST SCORES. almacenamos en la memoria interna del navegador los mejores scores. Mostramos después.
 function saveBestScore(score) {
-  let bestScores = JSON.parse(localStorage.getItem("bestScores")) || [];
+  let bestScores = JSON.parse(localStorage.getItem("bestScores")) || []; //empieza vacía para añadirlos después.
   bestScores.push(score);
   bestScores.sort((a, b) => b - a); // Ordenar de mayor a menor
   if (bestScores.length > 3) {
-    bestScores = bestScores.slice(0, 3); // Mantener solo los 3 mejores
+    bestScores = bestScores.slice(0, 3); // mantener solo los 3 mejores
   }
-  localStorage.setItem("bestScores", JSON.stringify(bestScores));
+  localStorage.setItem("bestScores", JSON.stringify(bestScores)); // guarda la lista
 }
-
 function displayBestScores() {
-  let bestScores = JSON.parse(localStorage.getItem("bestScores")) || [];
-  bestScoresNode.innerHTML = "<h3>Best Scores</h3>";
+  let bestScores = JSON.parse(localStorage.getItem("bestScores")) || []; // sacar la lista de scores anterior
+  bestScoresNode.innerHTML = "<h3>Best Scores:</h3>"; // escribe el nuevo en su lugar.
   bestScores.forEach((score, index) => {
     let scoreItem = document.createElement("div");
-    scoreItem.innerText = `${index + 1}. ${score}`;
+    scoreItem.innerText = `${"·"} ${score}`; //escribe la lista
     bestScoresNode.append(scoreItem);
   });
 }
-
-// Llamar a displayBestScores al cargar la página para mostrar los mejores puntajes actuales
+// Llamar a displayBestScores al cargar la página para mostrar los mejores scores actuales
 displayBestScores();
-
+//NEXT LEVEL: cada colisión con un parking, reinicia posición y elementos.
 function nextLevel() {
-  //aquí removemos todo lo que hay dentro del DOM
+  //removemos todo lo que hay dentro del DOM
   console.log("next level");
   parkingArray.forEach((eachParking) => {
     eachParking.node.remove();
@@ -234,46 +217,31 @@ function nextLevel() {
     eachObstacle.node.remove();
   });
   busObj.node.remove();
-  //aquí reiniciamos y creamos los nuevos elementos en JS
-  // el bus vuelve a la posición inicial
+  //reiniciamos y creamos los nuevos elementos, el bus vuelve a la posición inicial
   busObj = new Bus();
-  // limpiar los arrays de obstaculos y parking
+  //limpiar los arrays de obstaculos y parking
   parkingArray = [];
   obstaclesArray = [];
-  // aparecen nuevos parking y nuevos obstaculos
+  //aparecen nuevos parking y nuevos obstaculos
   obstaclesAppear();
   parkingAppear();
-  //score que suma 1 uds cada vez que desaparece
+  //score que suma 1 uds
   scoreNode.innerText++;
 }
 
 //* EVENT LISTENERS
-// addEventListener de botón de inicio de juego
+// botón de inicio de juego
 startBtnNode.addEventListener("click", () => {
   startGame();
 });
-//////////////////////////////////////////////////////
-// window.addEventListener("keydown", (event) => {
-//   if (event.key === "ArrowRight") {
-//     busObj.movement("Right");
-//   } else if (event.key === "ArrowLeft") {
-//     busObj.movement("Left");
-//   } else if (event.key === "ArrowUp") {
-//     busObj.movement("Up");
-//   } else if (event.key === "ArrowDown") {
-//     busObj.movement("Down");
-//   }
-// });
-//////////////////////////////////////////////////////
 
+// movimiento fluído en el teclado, pulsación larga de tecla
 window.addEventListener("keydown", (event) => {
   handleKey(event, true);
 });
-
 window.addEventListener("keyup", (event) => {
   handleKey(event, false);
 });
-
 function handleKey(event, isKeyDown) {
   if (event.key === "ArrowRight") {
     Keys.right = isKeyDown;
@@ -285,7 +253,6 @@ function handleKey(event, isKeyDown) {
     Keys.down = isKeyDown;
   }
 }
-
 let Keys = {
   up: false,
   down: false,
@@ -306,8 +273,7 @@ function updatePlayerMovement() {
     busObj.movement("Down");
   }
 }
-
-/////////////////////////////////////////////////////
+// botón de restart game
 restartBtnNode.addEventListener("click", function () {
   gameRestartNode.style.display = "none";
   startGame();

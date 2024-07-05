@@ -14,7 +14,7 @@ class Bus {
     this.node.style.top = `${this.y}px`;
     this.node.style.left = `${this.x}px`;
     // valor del movimiento
-    this.move = 10;
+    this.move = 9;
   }
   movement(direction) {
     const move = this.move;
@@ -56,10 +56,8 @@ class Bus {
     this.x = Math.max(0, Math.min(this.x, gameBoxNode.offsetWidth - this.w));
     this.y = Math.max(0, Math.min(this.y, gameBoxNode.offsetHeight - this.h));
 
-    // Actualiza la posición del nodo en el DOM
+    // actualiza la posición del nodo en el DOM
     this.node.style.left = `${this.x}px`;
     this.node.style.top = `${this.y}px`;
   }
-
-
 }
